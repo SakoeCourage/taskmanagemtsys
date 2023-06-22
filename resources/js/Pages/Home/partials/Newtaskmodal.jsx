@@ -38,7 +38,7 @@ function NewTaskForm({handleOnSucess}) {
             {errors?.description && <span className=' text-xs  text-red-00'>{errors.description}</span>}
             
         </section>
-        <Buttonsubmit processing={processing} text="Add Todo" />
+        <Buttonsubmit processing={processing} text="Add Task" />
     </form>
 }
 
