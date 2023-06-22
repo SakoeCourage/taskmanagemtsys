@@ -27,8 +27,13 @@ Route::group(['middleware'=> 'guest'],function(){
 Route::group(['middleware'=> 'auth:sanctum'],function(){
      Route::post('/logout',[\App\Http\Controllers\Auth\LogoutController::class,'logout']);
 
-     Route::group(['prefix'=>'todo'],function(){
-
+     Route::group(['prefix'=>'task'],function(){
+        Route::post('new-task',[\App\Http\Controllers\TaskController::class,'store']);
+        Route::get('all',[\App\Http\Controllers\TaskController::class,'index']);
+        Route::get('complete/{task}',[\App\Http\Controllers\TaskController::class,'edit']);
+        Route::get('delete/{task}',[\App\Http\Controllers\TaskController::class,'destroy']);
+        Route::get('/my-task',[\App\Http\Controllers\TaskController::class,'mytask']);
+        Route::get('/completed-task',[\App\Http\Controllers\TaskController::class,'completedTask']);
      });
 });
 

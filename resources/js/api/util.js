@@ -1,6 +1,6 @@
 import dayjs from "dayjs"
 import relativeTime from 'dayjs/plugin/relativeTime';
-
+dayjs.extend(relativeTime)
 export function dateReformat(date) {
     if (date) {
         return (dayjs(date).format('DD/MM/YYYY'))

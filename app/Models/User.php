@@ -42,4 +42,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function Uncompletedtask(){
+        return $this->hasMany(Task::class)->where('is_completed',false);
+    }
+    public function Completedtask(){
+        return $this->hasMany(Task::class)->where('is_completed',true);
+    }
+    public function task(){
+        return $this->hasMany(Task::class);
+    }
 }

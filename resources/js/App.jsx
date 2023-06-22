@@ -9,6 +9,7 @@ import User from './api/User';
 import { AuthProvider } from './context/Authcontext';
 import { useAuth } from './context/Authcontext';
 import Authroutes from './Authroutes';
+import Loadingspinner from './Components/Spinners/Loadingspinner';
 
 function App() {
   const { getUser, checkingforuser, user } = useAuth()
@@ -42,8 +43,8 @@ function App() {
           </Route>
         </Routes>
         :
-        <div>
-          Splash Screen
+        <div className=' flex items-center justify-center w-full h-screen'>
+          <Loadingspinner />
         </div>
       }
 
