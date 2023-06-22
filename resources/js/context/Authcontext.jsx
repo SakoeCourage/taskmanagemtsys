@@ -7,13 +7,28 @@ const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
+    const [notificationsCount, setNotificationsCount] = useState({})
     const [checkingforuser, setCheckingforUser] = useState('idle')
     const navigate = useNavigate();
+
+
+    
+    const getNoficationsCount = () => {
+        Api.get("/notification-count").then(res => {
+            setNotificationsCount(res.data)
+            console.log(res.data)
+        }).catch(err => {
+        })
+            .finally(() => {
+                setCheckingforUser('fullfiled')
+            })
+    }
 
     const getUser = () => {
         setCheckingforUser('processing')
         Api.get("/user").then(res => {
             setUser(res.data)
+            getNoficationsCount()
         }).catch(err => {
         })
             .finally(() => {
@@ -30,6 +45,7 @@ export const AuthProvider = ({ children }) => {
                     Cookies.set('BearerToken', token)
                     resolve(token)
                     getUser()
+                    
                 })
                 .catch(err => {
                     if (err?.response?.status === 422) {
@@ -55,9 +71,10 @@ export const AuthProvider = ({ children }) => {
             login,
             logout,
             getUser,
-            checkingforuser
+            checkingforuser,
+            notificationsCount
         }),
-        [checkingforuser, user]
+        [checkingforuser, user,notificationsCount]
     );
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
